@@ -25,7 +25,7 @@ dependencies {
 	implementation("org.postgresql:postgresql:42.6.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer.prometheus:prometheus-rsocket-spring:1.5.2")
-//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 }
 

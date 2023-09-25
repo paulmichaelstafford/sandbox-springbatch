@@ -1,9 +1,12 @@
 server:
-  port: 8080
+  port: 8099
 
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/batch_engine
+    url: jdbc:postgresql://localhost:5432/spring_batch
     username: postgres
     password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
