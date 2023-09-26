@@ -13,6 +13,7 @@ class PersonItemProcessor: ItemProcessor<Person, Person> {
         val firstName = person.firstName!!.uppercase(Locale.getDefault())
         val lastName = person.lastName!!.uppercase(Locale.getDefault())
         val transformedPerson = Person()
+        transformedPerson.id = person.id
         transformedPerson.firstName = firstName.lowercase()
         transformedPerson.lastName = lastName.lowercase()
         log.info("Converting ($person) into ($transformedPerson)")

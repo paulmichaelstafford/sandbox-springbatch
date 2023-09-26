@@ -31,8 +31,8 @@ class BatchConfiguration {
                 .name("personItemReader")
                 .resource(ClassPathResource("sample-data.csv"))
                 .delimited()
-                .names(*arrayOf("firstName", "lastName"))
-                .fieldSetMapper(object : BeanWrapperFieldSetMapper<Person?>() {
+                .names(*arrayOf("id", "firstName", "lastName"))
+                .fieldSetMapper(object : BeanWrapperFieldSetMapper<Person>() {
                     init {
                         setTargetType(Person::class.java)
                     }
@@ -49,7 +49,7 @@ class BatchConfiguration {
     fun writer(dataSource: DataSource): JdbcBatchItemWriter<Person> {
         return JdbcBatchItemWriterBuilder<Person>()
                 .itemSqlParameterSourceProvider(BeanPropertyItemSqlParameterSourceProvider())
-                .sql("INSERT INTO people (first_name, last_name) VALUES (:firstName, :lastName)")
+                .sql("INSERT INTO person (id, first_name, last_name) VALUES (:id, :firstName, :lastName)")
                 .dataSource(dataSource)
                 .build()
     }

@@ -10,3 +10,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+  batch:
+    jdbc:
+      initialize-schema: always
+  sql:
+    init:
+      mode: always
