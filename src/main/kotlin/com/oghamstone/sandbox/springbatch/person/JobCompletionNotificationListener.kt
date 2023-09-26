@@ -8,20 +8,13 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class JobCompletionNotificationListener(private val jdbcTemplate: JdbcTemplate): JobExecutionListener  {
+class JobCompletionNotificationListener: JobExecutionListener  {
 
     val log = LoggerFactory.getLogger(javaClass)
 
-    @Override
-    fun afterJob(jobExecution: JobExecution) {
-        if(jobExecution.getStatus().equals(BatchStatus.COMPLETED)) {
+    override fun afterJob(jobExecution: JobExecution) {
+        if(jobExecution.status == BatchStatus.COMPLETED) {
             log.info("!!! JOB FINISHED! Time to verify the results");
-
-            jdbcTemplate.query("SELECT first_name, last_name FROM people",
-                    (rs, row) -> new Person(
-            rs.getString(1),
-            rs.getString(2))
-            ).forEach(person -> log.info("Found <{{}}> in the database.", person));
         }
     }
 }

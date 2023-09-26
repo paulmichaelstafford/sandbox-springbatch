@@ -1,7 +1,10 @@
 package com.oghamstone.sandbox.springbatch.configuration
 
+import com.oghamstone.sandbox.springbatch.person.JobCompletionNotificationListener
 import com.oghamstone.sandbox.springbatch.person.Person
 import com.oghamstone.sandbox.springbatch.person.PersonItemProcessor
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.Step
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.launch.support.RunIdIncrementer
 import org.springframework.batch.core.repository.JobRepository
@@ -52,9 +55,9 @@ class BatchConfiguration {
     }
 
     @Bean
-    fun importUserJob(jobRepository: JobRepository?,
-                      listener: JobCompletionNotificationListener?, step1: Step?): Job {
-        return JobBuilder("importUserJob", jobRepository!!)
+    fun importUserJob(jobRepository: JobRepository,
+                      listener: JobCompletionNotificationListener, step1: Step): Job {
+        return JobBuilder("importUserJob", jobRepository)
                 .incrementer(RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
@@ -63,13 +66,13 @@ class BatchConfiguration {
     }
 
     @Bean
-    fun step1(jobRepository: JobRepository?,
-              transactionManager: PlatformTransactionManager?, writer: JdbcBatchItemWriter<Person>?): Step {
-        return StepBuilder("step1", jobRepository!!)
-                .chunk<Person, Person>(10, transactionManager!!)
+    fun step1(jobRepository: JobRepository,
+              transactionManager: PlatformTransactionManager, writer: JdbcBatchItemWriter<Person>): Step {
+        return StepBuilder("step1", jobRepository)
+                .chunk<Person, Person>(10, transactionManager)
                 .reader(reader())
                 .processor(processor())
-                .writer(writer!!)
+                .writer(writer)
                 .build()
     }
 }

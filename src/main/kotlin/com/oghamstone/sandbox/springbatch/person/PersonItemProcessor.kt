@@ -3,7 +3,6 @@ package com.oghamstone.sandbox.springbatch.person
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import java.util.*
-import java.util.logging.Logger
 
 class PersonItemProcessor: ItemProcessor<Person, Person> {
 
